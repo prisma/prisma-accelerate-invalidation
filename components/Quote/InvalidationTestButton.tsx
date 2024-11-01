@@ -25,6 +25,7 @@ export const InvalidationTestButton = () => {
       logMessage(
         "Starting cache invalidation test with a TTL of 60 seconds..."
       );
+      console.log("HOST", HOST);
 
       // Step 1: Fetch initial quote with ID 1 and log the result
       const initialResponse = await fetch(`${HOST}/api/quote/1`);
