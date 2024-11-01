@@ -33,6 +33,7 @@ npm install
 
 ```bash
 npx prisma migrate dev
+npx prisma db seed
 npx prisma generate --no-engine
 ```
 
