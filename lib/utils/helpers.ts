@@ -6,4 +6,7 @@ export async function delay(ms: number): Promise<void> {
   });
 }
 
-export const HOST = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
+export const HOST =
+  process.env.NEXT_PUBLIC_URL ||
+  process.env.VERCEL_URL ||
+  "http://localhost:3000";
