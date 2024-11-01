@@ -72,7 +72,7 @@ export const InvalidationTestButton = () => {
       toast.error("Cache test failed");
       logMessage("Cache invalidation test failed.");
     } finally {
-      setIsLoading(false); // Hide loading spinner after process
+      setIsLoading(false);
     }
   };
 
@@ -114,7 +114,6 @@ export const InvalidationTestButton = () => {
   );
 };
 
-// Enhanced Timeline component with increased width
 const Timeline = ({ logs }: { logs: string[] }) => (
   <div className="bg-gray-800 text-white p-6 rounded-lg shadow-lg max-w-2xl mx-auto mt-8 space-y-4">
     <h2 className="text-3xl font-semibold mb-4 text-blue-300">Timeline</h2>
