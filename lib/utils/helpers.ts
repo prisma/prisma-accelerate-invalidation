@@ -5,5 +5,3 @@ export async function delay(ms: number): Promise<void> {
     }, ms);
   });
 }
-
-export const HOST = process.env.NEXT_PUBLIC_URL || process.env.VERCEL_URL;

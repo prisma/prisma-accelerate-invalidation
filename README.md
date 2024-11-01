@@ -15,8 +15,6 @@ DATABASE_URL="prisma://accelerate.prisma-data.net/?api_key=ACCELERATE_API_KEY"
 
 # To run migrations
 DIRECT_URL="postgresql://username:password@host:5432/database_name"
-
-NEXT_PUBLIC_URL="http://localhost:3000"
 ```
 
 ## Getting Started

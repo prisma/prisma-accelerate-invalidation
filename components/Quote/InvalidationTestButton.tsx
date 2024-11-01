@@ -1,6 +1,5 @@
 "use client";
 
-import { HOST } from "@/lib/utils/helpers";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -25,10 +24,9 @@ export const InvalidationTestButton = () => {
       logMessage(
         "Starting cache invalidation test with a TTL of 60 seconds..."
       );
-      console.log("HOST", HOST);
 
       // Step 1: Fetch initial quote with ID 1 and log the result
-      const initialResponse = await fetch(`${HOST}/api/quote/1`);
+      const initialResponse = await fetch(`/api/quote/1`);
       const initialData = await initialResponse.json();
       const initialQuote = initialData.quote;
       logMessage(`Fetched initial quote: "${initialQuote}"`);
@@ -36,10 +34,9 @@ export const InvalidationTestButton = () => {
       // Step 2: Generate a new random quote
       const randomNumber = Math.floor(Math.random() * 100000);
       const newQuote = `This is a quote - Random Number: ${randomNumber}`;
-      console.log("HOST", HOST);
 
       // Update the quote with the new random quote and log the update
-      await fetch(`${HOST}/api/quote/1`, {
+      await fetch(`/api/quote/1`, {
         method: "PUT",
         body: JSON.stringify({ quote: newQuote }),
         headers: { "Content-Type": "application/json" },
@@ -48,7 +45,7 @@ export const InvalidationTestButton = () => {
 
       // Step 3: Send cache invalidation event and record start time
       const invalidationStart = Date.now();
-      await fetch(`${HOST}/api/invalidate`, { method: "POST" });
+      await fetch(`/api/invalidate`, { method: "POST" });
       logMessage("Cache invalidation event triggered.");
 
       // Step 4: Poll for updated data
@@ -56,7 +53,7 @@ export const InvalidationTestButton = () => {
       let foundUpdatedData = false;
 
       while (!foundUpdatedData) {
-        const response = await fetch(`${HOST}/api/quote/1?cache=TTL`);
+        const response = await fetch(`/api/quote/1?cache=TTL`);
         const data = await response.json();
 
         if (data.quote === newQuote) {
