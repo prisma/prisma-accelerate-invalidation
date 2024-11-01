@@ -53,7 +53,7 @@ export const InvalidationTestButton = () => {
       let foundUpdatedData = false;
 
       while (!foundUpdatedData) {
-        const response = await fetch(`/api/quote/1?cache=TTL`);
+        const response = await fetch(`/api/quote/1`);
         const data = await response.json();
 
         if (data.quote === newQuote) {
