@@ -35,6 +35,7 @@ export const InvalidationTestButton = () => {
       // Step 2: Generate a new random quote
       const randomNumber = Math.floor(Math.random() * 100000);
       const newQuote = `This is a quote - Random Number: ${randomNumber}`;
+      console.log("HOST", HOST);
 
       // Update the quote with the new random quote and log the update
       await fetch(`${HOST}/api/quote/1`, {
