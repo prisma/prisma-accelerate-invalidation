@@ -1,12 +1,19 @@
 "use client";
 
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { FaChevronDown, FaChevronRight } from "react-icons/fa";
 
 export const InvalidationTestButton = () => {
   const [testLog, setTestLog] = useState<string[]>([]);
   const [finalResult, setFinalResult] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const logMessage = (message: string) =>
     setTestLog((prev) => [
@@ -26,17 +33,17 @@ export const InvalidationTestButton = () => {
       );
 
       // Step 1: Fetch initial quote with ID 1 and log the result
-      const initialResponse = await fetch(`/api/quote/1`);
+      const initialResponse = await fetch(`/api/quote/create`);
       const initialData = await initialResponse.json();
       const initialQuote = initialData.quote;
-      logMessage(`Fetched initial quote: "${initialQuote}"`);
+      logMessage(`Created and fetched initial quote: "${initialQuote}"`);
 
       // Step 2: Generate a new random quote
       const randomNumber = Math.floor(Math.random() * 100000);
       const newQuote = `This is a quote - Random Number: ${randomNumber}`;
 
       // Update the quote with the new random quote and log the update
-      await fetch(`/api/quote/1`, {
+      await fetch(`/api/quote/${initialData.id}`, {
         method: "PUT",
         body: JSON.stringify({ quote: newQuote }),
         headers: { "Content-Type": "application/json" },
@@ -53,7 +60,7 @@ export const InvalidationTestButton = () => {
       let foundUpdatedData = false;
 
       while (!foundUpdatedData) {
-        const response = await fetch(`/api/quote/1`);
+        const response = await fetch(`/api/quote/${initialData.id}`);
         const data = await response.json();
 
         if (data.quote === newQuote) {
@@ -81,13 +88,90 @@ export const InvalidationTestButton = () => {
       <Toaster position="top-center" reverseOrder={false} />
       <div className="text-center mb-6">
         {" "}
-        {/* Removed top margin */}
-        <h1 className="text-4xl font-bold text-slate-800 dark:text-white mb-2">
-          Cache Invalidation Test
-        </h1>
-        <p className="text-lg text-slate-600 dark:text-slate-400">
-          Testing cache invalidation with a Time-to-Live (TTL) of 60 seconds.
-        </p>
+        <div className="container mx-auto px-4 ">
+          {/* Removed top margin */}
+          <h1 className="text-4xl font-bold text-slate-800 dark:text-white mb-2 mt-6">
+            Cache invalidation test
+          </h1>
+          <br />
+          <p className="text-lg text-slate-600 dark:text-slate-400">
+            This app shows how long it takes to invalidate a{" "}
+            <a
+              href="https://www.prisma.io/accelerate"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:underline"
+            >
+              Prisma Accelerate
+            </a>{" "}
+            cached query result on demand using the{" "}
+            <a
+              href="https://www.prisma.io/docs/accelerate/api-reference#accelerateinvalidate"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <code className="bg-gray-200 dark:bg-blue-600 rounded px-1 mx-1 underline">
+                $invalidate
+              </code>
+            </a>{" "}
+            API.
+          </p>
+
+          <Collapsible open={isOpen} onOpenChange={setIsOpen}>
+            <CollapsibleTrigger>
+              <p className=" text-lg text-slate-500 italic">
+                Learn how the app works :{" "}
+                <span className="text-black inline-flex align-middle">
+                  {isOpen ? <FaChevronDown /> : <FaChevronRight />}{" "}
+                </span>
+              </p>
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <div className="flex flex-col justify-center items-center">
+                <p className="mt-4 text-slate-600 dark:text-slate-400">
+                  <span className="">
+                    {" "}
+                    When you click the button labelled “
+                    <span className="italic font-bold">
+                      Start cache invalidation test
+                    </span>
+                    ”
+                  </span>
+                  :
+                </p>
+                <ol className="text-md max-w-md list-decimal list-outside mt-2 space-y-2 text-slate-600 dark:text-slate-300 text-left">
+                  <li>
+                    A quote is created and fetched with a Time-to-Live (TTL) of
+                    60 seconds.
+                  </li>
+                  <li>The fetched quote is cached with a TTL of 60 seconds.</li>
+                  <li>
+                    The cache is invalidated using Prisma Accelerate’s
+                    <a
+                      href="https://www.prisma.io/docs/accelerate/api-reference#accelerateinvalidate"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <code className="bg-gray-200 dark:bg-blue-600 rounded px-1 mx-1 underline">
+                        $invalidate
+                      </code>
+                    </a>
+                    API.
+                  </li>
+                  <li>
+                    The app continuously polls the API until the cache is
+                    cleared and the updated quote is received.
+                  </li>
+                  <li>
+                    Finally, the app displays the total time (including
+                    roundtrip time from the front-end to the API) required for
+                    cache invalidation to take effect.
+                  </li>
+                </ol>
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
+        </div>
       </div>
 
       <div className="flex items-center justify-center mb-6 space-x-3">
@@ -96,7 +180,7 @@ export const InvalidationTestButton = () => {
           disabled={isLoading}
           className="focus:outline-none text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-indigo-500 dark:hover:bg-indigo-600 dark:focus:ring-indigo-700 disabled:opacity-50"
         >
-          Start Cache Invalidation Test
+          Start cache invalidation test
         </button>
         {isLoading && (
           <div className="w-6 h-6 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
