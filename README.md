@@ -1,6 +1,18 @@
-# Accelerate Next.js Starter Project
+# Prisma Accelerate Cache Invalidation Test
 
-This project demonstrates cache invalidation timing in a Next.js application using Prisma and Prisma Accelerate, with a Time-to-Live (TTL) strategy.
+This project demonstrates cache invalidation timing in a Next.js application using Prisma and Prisma Accelerate, with a Time-to-Live (TTL) strategy. It measures the time it takes for cache invalidation to reflect updated data.
+
+## Application Overview
+
+The app provides an interactive interface to test cache invalidation behavior.
+
+### How It Works:
+1. A quote is fetched with a TTL of 60 seconds.
+2. The fetched quote is cached.
+3. The quote is updated in the database.
+4. The cache is invalidated using Prisma Accelerate's `$invalidate` API.
+5. The app polls the API until the updated quote is fetched.
+6. The total time for invalidation to take effect is displayed, including frontend-to-backend roundtrip delays.
 
 ## Prerequisites
 
@@ -40,3 +52,11 @@ npx prisma generate --no-engine
 ```bash
 npm run dev
 ```
+
+The app will run at http://localhost:3000.
+
+## How to Use
+
+1.	Click the “Start cache invalidation test” button on the homepage.
+2.	Observe the timeline for cache invalidation and updated data retrieval.
+3.	Review the displayed total invalidation time.
