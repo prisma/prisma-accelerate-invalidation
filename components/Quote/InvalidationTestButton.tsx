@@ -91,7 +91,7 @@ export const InvalidationTestButton = () => {
         <div className="container mx-auto px-4 ">
           {/* Removed top margin */}
           <h1 className="text-4xl font-bold text-slate-800 dark:text-white mb-2 mt-6">
-            Cache invalidation test
+            Prisma Accelerate cache invalidation test
           </h1>
           <br />
           <p className="text-lg text-slate-600 dark:text-slate-400">
