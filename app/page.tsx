@@ -1,7 +1,7 @@
 import { InvalidationTestButton } from "@/components/Quote/InvalidationTestButton";
-import { Suspense } from "react";
 
 export const dynamic = "force-dynamic";
+export const runtime = "edge";
 
 export default function Home() {
   return (

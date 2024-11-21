@@ -4,6 +4,8 @@ import {
   updateQuoteById,
 } from "@/lib/utils/query";
 
+export const runtime = "edge";
+
 export async function GET(
   request: Request,
   { params }: { params: { id: string } }
