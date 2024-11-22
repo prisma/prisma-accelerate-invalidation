@@ -168,6 +168,18 @@ export const InvalidationTestButton = () => {
                     cache invalidation to take effect.
                   </li>
                 </ol>
+                <p className="mt-4 text-slate-600 dark:text-slate-400">
+                  Explore the code behind this demo in our GitHub{" "}
+                  <a
+                    href="https://github.com/prisma/prisma-accelerate-invalidation"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    repository
+                  </a>
+                  {"."}
+                </p>
               </div>
             </CollapsibleContent>
           </Collapsible>
