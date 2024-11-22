@@ -6,7 +6,7 @@ This project demonstrates cache invalidation timing in a Next.js application usi
 
 The app provides an interactive interface to test cache invalidation behavior.
 
-### How It Works:
+### How it works:
 1. A quote is fetched with a TTL of 60 seconds.
 2. The fetched quote is cached.
 3. The quote is updated in the database.
