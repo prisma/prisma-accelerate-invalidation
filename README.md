@@ -6,7 +6,10 @@ This project demonstrates cache invalidation timing in a Next.js application usi
 
 The app provides an interactive interface to test cache invalidation behavior.
 
+![Accelerate Cache Invalidation GIF](./accelerate-cache-invalidation.gif)
+
 ### How it works:
+
 1. A quote is fetched with a TTL of 60 seconds.
 2. The fetched quote is cached.
 3. The quote is updated in the database.
@@ -57,6 +60,6 @@ The app will run at http://localhost:3000.
 
 ## How to use the app
 
-1.	Click the “Start cache invalidation test” button on the homepage.
-2.	Observe the timeline for cache invalidation and updated data retrieval.
-3.	Review the displayed total invalidation time.
+1. Click the “Start cache invalidation test” button on the homepage.
+2. Observe the timeline for cache invalidation and updated data retrieval.
+3. Review the displayed total invalidation time.
