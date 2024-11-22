@@ -55,7 +55,7 @@ npm run dev
 
 The app will run at http://localhost:3000.
 
-## How to Use
+## How to use the app
 
 1.	Click the “Start cache invalidation test” button on the homepage.
 2.	Observe the timeline for cache invalidation and updated data retrieval.
