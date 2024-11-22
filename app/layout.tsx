@@ -10,6 +10,7 @@ const barlow = Barlow({
 export const metadata: Metadata = {
   title: "Accelerate cache invalidation",
   description: "Accelerate cache invalidation test",
+  icons: "/favicon.ico",
 };
 
 export default function RootLayout({
