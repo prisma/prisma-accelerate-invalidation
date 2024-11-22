@@ -2,7 +2,7 @@
 
 This project demonstrates cache invalidation timing in a Next.js application using Prisma and Prisma Accelerate, with a Time-to-Live (TTL) strategy. It measures the time it takes for cache invalidation to reflect updated data.
 
-## Application Overview
+## Application overview
 
 The app provides an interactive interface to test cache invalidation behavior.
 
