@@ -6,8 +6,6 @@ This project demonstrates [cache invalidation](https://www.prisma.io/docs/accele
 
 The app provides an interactive interface to test cache invalidation behavior.
 
-![Accelerate Cache Invalidation GIF](./accelerate-cache-invalidation.gif)
-
 ### How it works:
 
 1. A quote is fetched with a TTL of 60 seconds.
