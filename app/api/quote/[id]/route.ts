@@ -1,11 +1,27 @@
-import { getQuoteById, updateQuoteById } from "@/lib/utils/query";
+import {
+  createAndGetQuote,
+  getQuoteById,
+  updateQuoteById,
+} from "@/lib/utils/query";
+
+export const runtime = "edge";
 
 export async function GET(
   request: Request,
   { params }: { params: { id: string } }
 ) {
-  const id = parseInt(params.id);
-  const data = await getQuoteById(id, { ttl: 60 });
+  if (params.id != "create") {
+    const id = parseInt(params.id);
+
+    const data = await getQuoteById(id, { ttl: 60 });
+
+    return new Response(JSON.stringify(data.data), {
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  const data = await createAndGetQuote({ ttl: 60 });
+
   return new Response(JSON.stringify(data.data), {
     headers: { "Content-Type": "application/json" },
   });

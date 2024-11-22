@@ -1,10 +1,32 @@
 import prisma from "../db";
 import { CacheStrategy } from "../types";
 
+export const createAndGetQuote = async (strategy?: CacheStrategy) => {
+  const createdData = await prisma.quotes.create({
+    data: {
+      quote: `This is a quote - Random Number: ${Math.floor(
+        Math.random() * 100000 + 100000
+      )}`,
+    },
+  });
+
+  const result = await prisma.quotes
+    .findUnique({
+      where: { id: createdData.id },
+      cacheStrategy: {
+        ...strategy,
+        tags: ["quote_by_id"],
+      },
+    })
+    .withAccelerateInfo();
+
+  return result;
+};
+
 export const getQuoteById = async (id: number, strategy?: CacheStrategy) => {
   const result = await prisma.quotes
     .findUnique({
-      where: { id },
+      where: { id: id },
       cacheStrategy: {
         ...strategy,
         tags: ["quote_by_id"],
